@@ -1,8 +1,10 @@
 package com.unfv.codigobarrasapp;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -15,6 +17,8 @@ import android.widget.Toast;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 import com.unfv.codigobarrasapp.Config.AccesoBaseDatos;
 import com.unfv.codigobarrasapp.model.CodigoBarras;
 
@@ -42,17 +46,36 @@ public class MainActivity extends AppCompatActivity {
     private ArrayAdapter<String> mAdapter;
     List<String> codigosBarra = new ArrayList<>();
     SimpleDateFormat dateFormat;
+    // Yamil
+    private Button leerQr;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        // Yamil
+        leerQr = findViewById(R.id.leerQr);
         listaCodigos=findViewById(R.id.lv_codigoBarras);
         inicializarFirebase();
         accesoBaseDatos=new AccesoBaseDatos(getApplicationContext());
         generarListadoInit();
+        leerQr.setOnClickListener(mOnClickListener);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+        if(result != null){
+            if (result.getContents() != null){
+                codigo = (TextView) findViewById(R.id.edtCodigo);
+                codigo.setText(result.getContents());
+                actualizarListado();
+            }
+        }
+    }
     public void escanearCodigo(View view){
         vistaEscaner = new ZXingScannerView(this);
         vistaEscaner.setResultHandler(new zxingScanner());
@@ -70,7 +93,6 @@ public class MainActivity extends AppCompatActivity {
         codigo = (TextView) findViewById(R.id.edtCodigo);
         codigo.setText("");
         Toast.makeText(this,"Procesado", Toast.LENGTH_LONG).show();
-
     }
 
     public void almacenarLocal(CodigoBarras codigoBarras){
@@ -116,6 +138,17 @@ public class MainActivity extends AppCompatActivity {
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference();
     }
+
+    private View.OnClickListener mOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            switch (view.getId()){
+                case R.id.leerQr:
+                    new IntentIntegrator(MainActivity.this).initiateScan();
+                    break;
+            }
+        }
+    };
 
     private void generarListadoInit(){
         try {
