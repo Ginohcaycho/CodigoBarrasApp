@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "561735798340",
+    "firebase_url": "https://sidm-a337c.firebaseio.com",
+    "project_id": "sidm-a337c",
+    "storage_bucket": "sidm-a337c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:561735798340:android:2d9e3c18e944488b133611",
+        "android_client_info": {
+          "package_name": "com.unfv.codigobarrasapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "561735798340-ci53fv9hhs6a7kfip6uasnnop0k8ktha.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.unfv.codigobarrasapp",
+            "certificate_hash": "5ef8684f109d41a434003a6c9c11346fad0d12ee"
+          }
+        },
+        {
+          "client_id": "561735798340-jva2q2403lj547pir2hnfklgg6m6rb7v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDAhENo2nwYKlS3fx47txdHRQ8jjbrcYsI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "561735798340-jva2q2403lj547pir2hnfklgg6m6rb7v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
